@@ -26,6 +26,10 @@ FUNCTION DistributeRevenue(IncomingPayment):
     LogTransactionToBlockchain("Payment ID", "Timestamp", "Split Details")
   ELSE:
     Return Error("No funds received")
+MODULE 2: THE "VESTING CLIFF" (Anti-Freeloader)
+Goal: Ensure only committed partners get equity.
+
+JavaScript
 CONSTANT VESTING_PERIOD = 90 Days  // 3 Months
 
 FUNCTION CheckVestingStatus(Contributor):
@@ -43,6 +47,10 @@ FUNCTION CheckVestingStatus(Contributor):
   ELSE:
     Keep Status = "PROBATION"
     // They get paid hourly/flat fee, but no permanent rev-share yet.
+MODULE 3: THE "ANCHOR" (Immutable Attribution)
+Goal: Prevent "scraping off" names from the credits.
+
+JavaScript
 FUNCTION RecordContribution(WorkID, ContributorID):
   // Create a permanent link between the work and the worker
   Create DigitalSignature = Hash(WorkID + ContributorID + Timestamp)
@@ -53,6 +61,10 @@ FUNCTION RecordContribution(WorkID, ContributorID):
 
   IF Project.Sold to NewOwner:
     Retain Contributor.RoyaltyRights  // New owner inherits the debt to the creator.
+MODULE 4: THE "CLEAN ROOM" (Dispute Resolution)
+Goal: The "Nuclear Option." If you fire them for cause, you lose their work to avoid liability.
+
+JavaScript
 FUNCTION TerminateContributor(ContributorID, Reason):
   IF Reason is "BadActor":
     // The Penalty
@@ -72,6 +84,10 @@ FUNCTION TerminateContributor(ContributorID, Reason):
   ELSE (Amicable Departure):
     Freeze Contributor.Equity at current level
     Keep Work in Repository
+MODULE 5: THE "BOUNTY" ORACLE (Verification)
+Goal: How to prove the work is done without a bad boss blocking it.
+
+JavaScript
 FUNCTION VerifyMilestone(WorkID):
   // WE USE A 2-of-3 MULTI-SIG VOTE TO APPROVE WORK
   Voters = [ProjectOwner, LeadDeveloper, IndependentArbiter]
